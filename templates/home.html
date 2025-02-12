@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="text-center my-5">
+    <h1 class="fw-bold">Welcome to Lost & Found</h1>
+    <p class="lead">Easily report lost and found items at your location. Sign up to get started!</p>
+</div>
+
+{% if logged_in %}
+    <h2 class="text-center">Lost and Found Items</h2>
+    {% for category, items in items_by_category.items() %}
+        <div class="card my-3">
+            <div class="card-header bg-primary text-white fw-bold">{{ category }}</div>
+            <ul class="list-group list-group-flush">
+                {% for item in items %}
+                    <li class="list-group-item">
+                        <strong>{{ item.item_name }}</strong>: {{ item.description }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="text-center">
+        <a href="{{ url_for('login.login_user') }}" class="btn btn-primary btn-lg">Login</a>
+        <a href="{{ url_for('register.register_user') }}" class="btn btn-success btn-lg">Register</a>
+    </div>
+{% endif %}
+{% endblock %}
