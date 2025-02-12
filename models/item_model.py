@@ -1,7 +1,7 @@
 from database.db import db
 
 class Item(db.Model):
-    _tablename_ = 'lostitems'
+    __tablename__ = 'lostitems'
 
     item_id = db.Column(db.Integer, primary_key=True)
     item_name = db.Column(db.String(100), nullable=False)
@@ -11,5 +11,6 @@ class Item(db.Model):
     location = db.Column(db.String(100), nullable=True)
     reported_date = db.Column(db.Date, server_default=db.func.current_date())
 
-    def _repr_(self):
+    def __repr__(self):
         return f"<Item {self.item_name}>"
+    
