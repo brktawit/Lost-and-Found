@@ -37,5 +37,5 @@ def run_etl():
     print(f"✅ Transformed dataset with coordinates saved at {transformed_path}")
     print(df.head())  # Display the first 5 rows for verification
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     run_etl()
