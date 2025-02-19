@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1 class="mb-4">Lost and Found Items</h1>
+{% for category, items in items_by_category.items() %}
+    <h3>{{ category }}</h3>
+    <ul class="list-group mb-3">
+        {% for item in items %}
+            <li class="list-group-item">
+                <strong>{{ item.item_name }}</strong>: {{ item.description }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock %}
