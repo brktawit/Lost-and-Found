@@ -1,9 +1,10 @@
 function updateItem(itemId) {
     const itemName = prompt("Enter the new item name:");
     const description = prompt("Enter the new description:");
+    
 
     if (!itemName || !description) {
-        alert("Both fields are required.");
+        alert("All fields are required.");
         return;
     }
 
@@ -18,12 +19,25 @@ function updateItem(itemId) {
         })
     })
     .then(response => {
-        if (response.ok) {
-            alert("Item updated successfully!");
-            location.reload(); // Refresh the page to show the updated item
-        } else {
-            return response.json().then(data => alert(data.error));
+        if (!response.ok) {
+            return response.text().then(text => {
+                console.error("Server Response:", text);
+                throw new Error("Failed to update item.");
+            });
         }
+        return response.json();
     })
-    .catch(error => console.error("Error:", error));
+    .then(data => {
+        alert("Item updated successfully!");
+        
+        // Update row in table without reloading
+        let row = document.querySelector(`tr[data-item-id='${itemId}']`);
+        row.cells[0].innerText = itemName;
+        row.cells[1].innerText = description;
+
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert(`Failed to update item: ${error.message}`);
+    });
 }

@@ -1,3 +1,4 @@
+// to update a category
 function updateCategory(categoryId) {
     const newCategoryName = document.getElementById(`update-category-${categoryId}`).value;
 

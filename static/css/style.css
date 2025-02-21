@@ -1,0 +1,29 @@
+table {
+    width: 100%; /* Ensure table takes full width */
+    border-collapse: collapse; /* Remove extra spacing between cells */
+}
+
+th, td {
+    padding: 12px; /* Add spacing for better readability */
+    text-align: center; /* Center align text */
+}
+
+th {
+    background-color: #343a40 !important; /* Dark header */
+    color: white; /* White text */
+    font-weight: bold;
+}
+
+td {
+    background-color: #f8f9fa; /* Light background */
+}
+
+tr:hover {
+    background-color: #e9ecef; /* Light gray hover effect */
+}
+
+.action-icons {
+    font-size: 18px;
+    cursor: pointer;
+    margin: 0 5px;
+}

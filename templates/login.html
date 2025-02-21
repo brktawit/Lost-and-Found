@@ -4,39 +4,116 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <style>
+        .login-card {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+        .password-toggle {
+            cursor: pointer;
+            position: absolute;
+            right: 15px;
+            top: 38px;
+        }
+    </style>
 </head>
 <body class="bg-light">
     <div class="container d-flex justify-content-center align-items-center" style="height: 100vh;">
-        <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
+        <div class="login-card shadow-lg p-4">
             <h1 class="text-center mb-4">Login</h1>
+            
+            <!-- Error Message -->
+            <div id="error-message" class="alert alert-danger text-center d-none"></div>
+
             <form id="loginForm">
                 <!-- Username Field -->
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
                 </div>
-                <!-- Password Field -->
-                <div class="mb-3">
+
+                <!-- Password Field with Show/Hide -->
+                <div class="mb-3 position-relative">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+                    <i class="bi bi-eye password-toggle" onclick="togglePassword()"></i>
                 </div>
-                <!-- Submit Button -->
+
+                <!-- Submit Button with Spinner -->
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary">
+                        <span id="login-text">Login</span>
+                        <span id="login-spinner" class="spinner-border spinner-border-sm d-none"></span>
+                    </button>
                 </div>
             </form>
+
+            <!-- Registration Link -->
             <div class="text-center mt-3">
-                <a href="{{ url_for('register.register_user') }}" class="text-decoration-none">Don't have an account? Register</a>
+                <a href="{{ url_for('register.register_user') }}" class="text-decoration-none">Don't have an account? <strong>Register</strong></a>
             </div>
         </div>
     </div>
+
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+    <script>
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            let icon = document.querySelector(".password-toggle");
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                icon.classList.replace("bi-eye", "bi-eye-slash");
+            } else {
+                passwordField.type = "password";
+                icon.classList.replace("bi-eye-slash", "bi-eye");
+            }
+        }
+
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let errorMessage = document.getElementById("error-message");
+            let loginText = document.getElementById("login-text");
+            let loginSpinner = document.getElementById("login-spinner");
+
+            if (username.trim() === "" || password.trim() === "") {
+                errorMessage.innerText = "⚠️ Username and Password are required!";
+                errorMessage.classList.remove("d-none");
+                return;
+            }
+
+            // Show Loading Spinner
+            loginText.classList.add("d-none");
+            loginSpinner.classList.remove("d-none");
+
+            setTimeout(() => {
+                // Simulate login failure for now (you can replace with actual API call)
+                errorMessage.innerText = "❌ Invalid username or password!";
+                errorMessage.classList.remove("d-none");
+                loginText.classList.remove("d-none");
+                loginSpinner.classList.add("d-none");
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

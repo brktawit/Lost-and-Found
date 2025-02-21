@@ -1,15 +1,42 @@
 {% extends "base.html" %}
-{% block title %}Home{% endblock %}
+
+{% block title %}Lost Item Reporting System{% endblock %}
+
 {% block content %}
-<h1 class="mb-4">Lost and Found Items</h1>
-{% for category, items in items_by_category.items() %}
-    <h3>{{ category }}</h3>
-    <ul class="list-group mb-3">
-        {% for item in items %}
-            <li class="list-group-item">
-                <strong>{{ item.item_name }}</strong>: {{ item.description }}
-            </li>
-        {% endfor %}
-    </ul>
-{% endfor %}
+<div class="container text-center my-5">
+    <h1 class="fw-bold">Found a Lost Item?</h1>
+    <p class="lead">Submit a report and help return it to its rightful owner. This platform is managed by organizations to ensure safe recovery of lost items.</p>
+    <a href="{{ url_for('about') }}" class="btn btn-primary btn-lg">About Us</a>
+</div>
+
+<div class="container my-5">
+    <h3 class="text-center mb-4">How It Works</h3>
+    <div class="row text-center">
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>📝 Submit a Found Item</h5>
+                <p>Fill in the details of the lost item and where it was found.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>🏢 Admin Review</h5>
+                <p>The responsible organization verifies and lists the item.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card p-3 shadow-sm">
+                <h5>✅ Claim & Retrieve</h5>
+                <p>The rightful owner can visit the office to collect their item.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white text-center py-3">
+    <p>&copy; 2025 Lost Item Reporting System. All Rights Reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 {% endblock %}

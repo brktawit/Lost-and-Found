@@ -1,13 +1,33 @@
-from flask import render_template
 from flask import Blueprint, request, jsonify, session, redirect, url_for
+from database.db import db
+from flask import render_template
+from models.category_model import Category
+
+
 bp = Blueprint('categories', __name__, url_prefix='/categories')
+
+"""
+Routes for managing categories in the Lost and Found system.
+Only admins can add, update, and delete categories.
+"""
 
 
 # Admin-only route: Add a category
 @bp.route('/', methods=['POST'])
 def add_category():
-    from models.category_model import Category
-    from database.db import db
+    """
+    Adds a new category.
+    Only accessible by admins.
+
+    Responses:
+    - 201: Category added successfully
+    - 400: Missing category name
+    - 401: Unauthorized access
+    - 403: Admin access required
+    - 409: Category already exists
+    """
+    
+    
     # Check if user is logged in
     if 'user' not in session:
         return jsonify({"error": "Unauthorized access"}), 401
@@ -35,14 +55,16 @@ def add_category():
     return redirect(url_for('categories.manage_categories'))
 
 
+
 @bp.route('/', methods=['GET'])
 def manage_categories():
-    from models.category_model import Category
+    """
+    Retrieves all categories.
 
-    # Query all categories from the database
+    """
+    
     categories = Category.query.all()
-    print("Categories fetched from database:", categories)  # Debugging
-
+    
     # Render the template with the list of categories
     return render_template('manage_categories.html', categories=categories)
 
@@ -50,8 +72,11 @@ def manage_categories():
 
 @bp.route('/<int:category_id>', methods=['PUT'])
 def update_category(category_id):
-    from models.category_model import Category
-    from database.db import db
+    """
+    Updates an existing category.
+    Only accessible by admins.
+
+    """
 
     # Check if user is logged in
     if 'user' not in session:
@@ -80,11 +105,15 @@ def update_category(category_id):
     return jsonify({"message": f"Category '{new_category_name}' updated successfully!"}), 200
 
 
+
 @bp.route('/<int:category_id>', methods=['DELETE'])
 def delete_category(category_id):
-    from models.category_model import Category
-    from database.db import db
+    """
+    Deletes a category.
+    Only accessible by admins.
 
+    """
+   
     # Check if user is logged in
     if 'user' not in session:
         return jsonify({"error": "Unauthorized access"}), 401
@@ -101,6 +130,7 @@ def delete_category(category_id):
     # Delete the category
     db.session.delete(category)
     db.session.commit()
+    
 
     return jsonify({"message": "Category deleted successfully"}), 200
 

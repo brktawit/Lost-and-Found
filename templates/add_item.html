@@ -1,87 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Item</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-        }
-        .container {
-            max-width: 600px;
-            margin: 50px auto;
-            background-color: white;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        label {
-            font-weight: bold;
-        }
-        input, select, button {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 100%;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .success-message {
-            color: green;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Add Item</h1>
+{% extends "base.html" %}
 
-        {% if success %}
-            <p class="success-message">{{ success }}</p>
-        {% endif %}
+{% block title %}Add Lost Item{% endblock %}
 
-        <form method="POST" action="{{ url_for('items.add_item') }}">
-            <label for="item_name">Item Name:</label>
-            <input type="text" id="item_name" name="item_name" placeholder="Enter item name" required>
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3>Report Found Item</h3>
+                </div>
+                <div class="card-body">
+                    
+                    {% if success %}
+                        <div class="alert alert-success text-center">
+                            {{ success }}
+                        </div>
+                    {% endif %}
 
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Enter description">
+                    <form method="POST" action="{{ url_for('items.add_item') }}">
+                        <div class="mb-3">
+                            <label for="item_name" class="form-label">Item Name:</label>
+                            <input type="text" id="item_name" name="item_name" class="form-control" placeholder="Enter item name" required>
+                        </div>
 
-            <label for="category_id">Category:</label>
-            <select id="category_id" name="category_id" required>
-                {% for category in categories %}
-                    <option value="{{ category.category_id }}">{{ category.category_name }}</option>
-                {% endfor %}
-            </select>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <input type="text" id="description" name="description" class="form-control" placeholder="Enter description">
+                        </div>
 
-            <label for="location">Location:</label>
-            <input type="text" id="location" name="location" placeholder="Enter location">
+                        <div class="mb-3">
+                            <label for="category_id" class="form-label">Category:</label>
+                            <select id="category_id" name="category_id" class="form-select" required>
+                                {% for category in categories %}
+                                    <option value="{{ category.category_id }}">{{ category.category_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
 
-            <button type="submit">Add Item</button>
-        </form>
+                        <div class="mb-3">
+                            <label for="place" class="form-label">Place:</label>
+                            <input type="text" id="place" name="place" class="form-control" placeholder="Enter location">
+                        </div>
+
+                        <!-- Add Location Field -->
+                <label for="searchInput">Search Location:</label>
+                <input type="text" id="searchInput" class="form-control mb-2" placeholder="Search for a location...">
+
+                    <!-- Map Section -->
+            <div id="map" style="height: 300px;"></div>
+
+            <!-- Hidden Fields for Storing Latitude and Longitude -->
+        <input type="hidden" id="latitude" name="latitude">
+        <input type="hidden" id="longitude" name="longitude">
+
+                    
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Add Item</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</div>
+
+
+<!-- Include JavaScript -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script src="{{ url_for('static', filename='js/add_location.js') }}" defer></script>
+{% endblock %}

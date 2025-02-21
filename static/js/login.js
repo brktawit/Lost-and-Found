@@ -1,5 +1,5 @@
 document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault(); // Prevent default form submission
 
     // Gather form data
     const username = document.getElementById("username").value;
@@ -16,15 +16,28 @@ document.getElementById("loginForm").addEventListener("submit", async function (
         });
 
         const result = await response.json();
+        console.log("🔹 Login Response:", result); // ✅ Debugging
 
         if (response.ok) {
             alert(result.message); // Success message
-            window.location.href = "/"; // Redirect to home page
+
+            // ✅ Store user role & ID in sessionStorage
+            sessionStorage.setItem("user_role", result.role);
+            sessionStorage.setItem("user_id", result.user_id);
+
+            console.log("✅ Stored in sessionStorage:", {
+                role: sessionStorage.getItem("user_role"),
+                user_id: sessionStorage.getItem("user_id")
+            });
+
+            // Redirect to the correct page based on role
+            window.location.href = result.redirect || "/";  // ✅ Default redirect to home
+            
         } else {
             alert(result.error); // Show error message
         }
     } catch (err) {
-        console.error("Error:", err);
+        console.error("❌ Login error:", err);
         alert("An error occurred. Please try again.");
     }
 });

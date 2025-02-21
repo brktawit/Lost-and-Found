@@ -10,12 +10,26 @@ function deleteCategory(categoryId) {
         }
     })
     .then(response => {
-        if (response.ok) {
-            alert("Category deleted successfully");
-            location.reload(); // Reload the page to update the category list
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.error || "Unknown error occurred");
+            });
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message);
+
+        // Correctly selecting the category list item by ID
+        const categoryElement = document.getElementById(`category-${categoryId}`);
+        if (categoryElement) {
+            categoryElement.remove();  // Remove category from the UI
         } else {
-            response.json().then(data => alert(data.error));
+            console.warn(`Category ID ${categoryId} not found in the DOM.`);
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        alert(`Failed to delete category: ${error.message}`);
+    });
 }
