@@ -6,7 +6,10 @@ from sqlalchemy.orm import relationship
 class Item(db.Model):
     __tablename__ = 'lostitems'
 
+    # Primary key: Unique identifier for the item
     item_id = db.Column(db.Integer, primary_key=True)
+    
+    # Basic item details
     item_name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
 

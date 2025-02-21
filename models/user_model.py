@@ -12,9 +12,14 @@ class User(db.Model):
     
     __tablename__ = 'users'
     
+    # Primary key: Unique identifier for the user
     user_id = db.Column(db.Integer, primary_key=True)
+
+    # User authentication details
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.Text, nullable=False) # This Ensures the password is securely hashed
+
+    # User role: Can be 'user', 'admin', etc.
     role = db.Column(db.String(10), default='user', nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 

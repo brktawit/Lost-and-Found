@@ -12,7 +12,11 @@ class Category(db.Model):
         items (relationship): Establishes a one-to-many relationship with the Item model.
     """
      __tablename__ = 'categories'
+
+     # Primary key: Unique identifier for each category
      category_id = db.Column(db.Integer, primary_key=True)
+
+     # Category name: Must be unique and cannot be null
      category_name = db.Column(db.String(80), unique=True, nullable=False)
      
     # Relationship with Item model (One category can have multiple items)
