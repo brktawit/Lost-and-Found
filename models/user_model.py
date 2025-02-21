@@ -14,7 +14,7 @@ class User(db.Model):
     
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    password_hash = db.Column(db.Text, nullable=False) # Ensure this is securely hashed
+    password_hash = db.Column(db.Text, nullable=False) # This Ensures the password is securely hashed
     role = db.Column(db.String(10), default='user', nullable=False)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 

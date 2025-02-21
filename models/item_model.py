@@ -15,7 +15,7 @@ class Item(db.Model):
     category_name = db.Column(db.String(100), nullable=False)  # Store category name directly
     user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
 
-    # Location (Geospatial Point: latitude/longitude).
+    # Location (Geospatial Point: latitude/longitude)
     location = db.Column(Geometry("POINT", srid=4326), nullable=True) 
 
     # Place where the items were found

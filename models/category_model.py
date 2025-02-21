@@ -4,7 +4,7 @@ from sqlalchemy.orm import relationship
 
 class Category(db.Model):
      """
-    This Represents a category of lost items.
+    Represents a category of lost items.
 
     Attributes:
         category_id (int): The unique identifier for the category.
