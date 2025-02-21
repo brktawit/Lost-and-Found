@@ -6,7 +6,7 @@ class User(db.Model):
     """
     Represents a system user.
     
-    items (relationship): Relationship to the `Item` model, representing items reported by the user.
+    items (relationship): Relationship to the `Item` model, representing items reported by the user
     """
     
     
