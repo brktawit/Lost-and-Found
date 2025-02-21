@@ -48,6 +48,7 @@ The system includes a general search functionality that allows users to search f
 To enhance user experience, the system implements pagination for the list of reported items. Users can view the reported items in batches of 10 items per page, allowing for easier navigation and quicker access to specific entries. Users can navigate through the pages using provided controls to view additional items.
 
 ## 📂 Folder Structure
+```plaintext
 📂 etl/
 │── 📂 extract/
 │   └── 📄 fetch_kaggle_data.py  # Downloads dataset
