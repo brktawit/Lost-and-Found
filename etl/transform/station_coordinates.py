@@ -1,4 +1,4 @@
-# For storing station coordinates
+# A dictionary that maps unique station names to their corresponding geographical coordinates.
 
 station_coordinates = {
     "ADARSH NAGAR": (28.7165805, 77.1704223),

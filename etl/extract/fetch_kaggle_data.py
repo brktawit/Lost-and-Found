@@ -1,10 +1,14 @@
 import kagglehub  # Ensure KaggleHub is installed: pip install kagglehub
 import shutil
 import os
+import pandas as pd
 
 def download_kaggle_dataset():
     """
     Downloads the dataset using KaggleHub and moves it to the ETL data folder.
+    
+    :param dataset_url: URL of the dataset to download
+    :param etl_raw_folder: Path to the ETL raw data folder
     """
     print("⏳ Downloading dataset from Kaggle...")
     dataset_folder = kagglehub.dataset_download("forgetabhi/delhi-metro-lost-and-found-dataset")
@@ -24,15 +28,8 @@ def download_kaggle_dataset():
     # Return the path of the downloaded dataset (for future loading)
     return os.path.join(etl_raw_folder, os.listdir(etl_raw_folder)[0])
 
-def load_dataset(file_path: str):
-    """
-    Loads the dataset into a Pandas DataFrame.
-    """
-    import pandas as pd  # Import Pandas here to avoid issues if not needed elsewhere
-    df = pd.read_csv(file_path)
-    print("📊 First 5 rows of the dataset:\n", df.head())
-    return df
 
 if __name__ == "__main__":
     dataset_path = download_kaggle_dataset()
-    df = load_dataset(dataset_path)
+    df = pd.read_csv(dataset_path)
+    print (df.head())
