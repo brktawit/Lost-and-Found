@@ -48,11 +48,68 @@ The system includes a general search functionality that allows users to search f
 To enhance user experience, the system implements pagination for the list of reported items. Users can view the reported items in batches of 10 items per page, allowing for easier navigation and quicker access to specific entries. Users can navigate through the pages using provided controls to view additional items.
 
 ## 📂 Folder Structure
-lost-and-found/ ├── etl/ │ ├── extract/ │ │ └── fetch_kaggle_data.py # Downloads dataset │ ├── transform/ │ │ ├── drop_unnecessary_fields.py # Cleans dataset │ │ ├── assign_categories.py # Auto-assigns categories │ │ ├── add_coordinates.py # Adds geospatial mapping │ │ └── station_coordinates.py # For storing station coordinates dictionary │ ├── load/ │ │ └── insert_to_db.py # Loads data into database │ ├── data/ │ │ ├── raw/ # Original dataset │ │ └── processed/ # Transformed dataset │ └── main_etl.py # ETL execution script ├── routes/ │ ├── items.py # Routes for item management │ ├── categories.py # Routes for category management │ ├── login.py
-│ ├── logout.py │ ├── protected.py
-│ └── register.py
-├── models/ │ ├── user_model.py # User schema │ ├── item_model.py # Item schema │ └── category_model.py # Category schema ├── templates/ │ ├── about.html # About us page ├── base.html # Main template │ ├── home.html # Home page │ ├── login.html # Login page │ ├── register.html # Register page │ ├── manage_items.html # Item management UI │ ├── manage_categories.html # Category management UI │ └── add_item.html
-├── static/ │ ├── css/style.css # Custom styles │ ├── js/add_location.js │ ├── js/delete_categories.js │ ├── js/delete_items.js │ ├── js/fetch_items.js │ ├── js/login.js │ ├── js/manage_categories.js │ ├── js/register.js │ └── js/update_items.js ├── database/ │ └── db.py # Database connection ├── app.py # Main application entry point ├── requirements.txt # installed dependencies └── README.md # Documentation
+📂 etl/
+│── 📂 extract/
+│   └── 📄 fetch_kaggle_data.py  # Downloads dataset
+│
+│── 📂 transform/
+│   ├── 📄 drop_unnecessary_fields.py  # Cleans dataset
+│   ├── 📄 assign_categories.py  # Auto-assigns categories
+│   ├── 📄 add_coordinates.py  # Adds geospatial mapping
+│   ├── 📄 station_coordinates.py  # Stores station coordinates dictionary
+│
+│── 📂 load/
+│   └── 📄 insert_to_db.py  # Loads data into database
+│
+│── 📂 data/
+│   ├── 📂 raw/  # Original dataset
+│   └── 📂 processed/  # Transformed dataset
+│
+│── 📄 main_etl.py  # ETL execution script
+│
+📂 routes/
+│── 📄 items.py  # Routes for item management
+│── 📄 categories.py  # Routes for category management
+│── 📄 login.py  
+│── 📄 logout.py
+│── 📄 protected.py  
+│── 📄 register.py  
+│
+📂 models/
+│── 📄 user_model.py  # User schema
+│── 📄 item_model.py  # Item schema
+│── 📄 category_model.py  # Category schema
+│
+📂 templates/
+│── 📄 base.html  # Main template
+│── 📄 home.html  # Home page
+│── 📄 login.html  # Login page
+│── 📄 register.html  # Register page
+│── 📄 manage_items.html  # Item management UI
+│── 📄 manage_categories.html  # Category management UI
+│── 📄 add_item.html  
+│── 📄 about.html 
+
+│
+📂 static/
+│── 📂 css/
+│   └── 📄 style.css  # Custom styles
+│
+│── 📂 js/
+│   ├── 📄 add_location.js
+│   ├── 📄 delete_categories.js
+│   ├── 📄 delete_items.js
+│   ├── 📄 fetch_items.js
+│   ├── 📄 login.js
+│   ├── 📄 manage_categories.js
+│   ├── 📄 register.js
+│   └── 📄 update_items.js
+│
+📂 database/
+│── 📄 db.py  # Database connection
+│
+📄 app.py  # Main application entry point
+📄 README.md  # Documentation
 
 ## 🛠️ Technologies Used
 
