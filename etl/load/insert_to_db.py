@@ -5,7 +5,7 @@ from geoalchemy2 import Geometry
 import os
 
 # Database Configuration
-DB_URL = "postgresql://postgres:postgres@localhost/betty"
+DB_URL = "postgresql://postgres:postgres@localhost/Trial" #make sure you use your own database name
 engine = create_engine(DB_URL)
 
 
