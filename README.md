@@ -136,7 +136,7 @@ git clone https://github.com/brktawit/Lost-and-Found
 2. **Set Up a Virtual Environment**
 ```bash
 python -m venv venv
-source venv\Scripts\activate  # On Linux use:  venv/bin/activate
+venv\Scripts\activate
 ```
 
 3. **Install Dependencies**
@@ -154,12 +154,36 @@ flask db migrate -m "Initial migration"
 flask db upgrade
 ```
 
-5. **Run the ETL process**
+5. **Create Admin Credentials in SQL**
+Before running the ETL process, make sure to set up admin credentials manually in your database. You can do this by executing the following SQL command:
 ```bash
-python etl/main_etl.py
+-- Create admin user with the necessary credentials
+INSERT INTO users (username, password_hash, role) 
+VALUES ('admin', 'your_admin_password_here', 'admin');
 ```
 
-6. **Run the Application**
+6. **Category Setup**
+You will need to ensure the following categories exist in your categories table before running the ETL process. These categories are required for mapping items in the lostitems table.
+```bash
+-- Insert categories if not already present
+INSERT INTO categories (category_name) VALUES
+('Electronics'),
+('Bags'),
+('Clothing'),
+('Documents'),
+('Household Items'),
+('Personal Accessories'),
+('Miscellaneous');
+```
+During the ETL process, ensure that you map the categories in your dataset to the correct category IDs in the database. This mapping should be done in the etl/load/insert_to_db.py file.
+
+
+7. **Run the ETL process**
+```bash
+python -m etl.main_etl
+```
+
+8. **Run the Application**
 ```bash
 flask run
 ```
